@@ -1,6 +1,14 @@
 {
+    "commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
     "pre-commit": {
         "enabled": true,
-        "actions": []
+        "actions": [
+            {
+                "action": "./vendor/bin/pest --stop-on-defect"
+            }
+        ]
     }
 }

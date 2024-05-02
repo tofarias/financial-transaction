@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Domain\Users\Enums\EnumDocType;
+use Domain\Users\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
+    protected $model = User::class;
+
     /** The current password being used by the factory. */
     protected static ?string $password;
 
@@ -24,11 +27,23 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'doc_number' => function (array $attr) {
+                return $this->when($attr['doc_type'] == EnumDocType::CPF, function () {
+                    return $this->faker->unique()->cpf(false);
+                }, function () {
+                    return $this->faker->unique()->cnpj(false);
+                });
+            },
+            'timezone' => function (array $attr) {
+                return $this->when($attr['doc_type'] == EnumDocType::CPF, function () {
+                    return $this->faker->randomElement(['America/Sao_Paulo', 'America/Rio_Branco', 'America/Manaus']);
+                }, function () {
+                    return 'America/Sao_Paulo';
+                });
+            },
             'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
         ];
     }
 

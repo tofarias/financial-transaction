@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Users\Enums\EnumDocType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,9 +15,10 @@ return new class () extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('doc_type', array_column(EnumDocType::cases(), 'value'))->default(EnumDocType::CPF);
+            $table->string('doc_number')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('timezone')->default('America/Sao_Paulo');
             $table->timestamps();
         });
     }

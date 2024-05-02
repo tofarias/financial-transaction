@@ -12,7 +12,7 @@ Route::get('/', function () {
     return response()->json(['ping pong']);
 });
 
-Route::get('/users', ListUsersController::class);
-Route::get('/wallets', ListWalletsController::class);
-Route::get('/transactions', ListTransactionsController::class);
+Route::get('/users', ListUsersController::class)->name('users.index');
+Route::get('/wallets', ListWalletsController::class)->name('wallets.index');
+Route::get('/transactions', ListTransactionsController::class)->name('transactions.index');
 Route::post('/transfer', CreateTransactionController::class);

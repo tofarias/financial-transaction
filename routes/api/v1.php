@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Transaction\V1\Http\Controllers\CreateTransactionController;
 use Domain\Transaction\V1\Http\Controllers\ListTransactionsController;
 use Domain\Users\V1\Http\Controllers\ListUsersController;
 use Domain\Wallets\V1\Http\Controllers\ListWalletsController;
@@ -14,3 +15,4 @@ Route::get('/', function () {
 Route::get('/users', ListUsersController::class);
 Route::get('/wallets', ListWalletsController::class);
 Route::get('/transactions', ListTransactionsController::class);
+Route::post('/transfer', CreateTransactionController::class);

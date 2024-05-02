@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Users\V1\Http\Resources\User;
+namespace Domain\Users\V1\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;

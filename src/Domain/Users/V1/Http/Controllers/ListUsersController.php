@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Domain\Users\V1\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Domain\Shared\Helpers\RequestDTO;
 use Domain\Users\V1\Enums\EnumDocType;
 use Domain\Users\V1\Services\ListUsersService;
 use Symfony\Component\HttpFoundation\Response;
-use Domain\Users\V1\Http\Resources\User\UserResource;
-use Domain\Users\V1\Http\Resources\User\UserCollection;
-use Illuminate\Validation\Rule;
+use Domain\Users\V1\Http\Resources\UserResource;
+use Domain\Users\V1\Http\Resources\UserCollection;
 
 /**
  * ListUsersController

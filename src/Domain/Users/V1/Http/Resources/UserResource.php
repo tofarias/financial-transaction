@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Domain\Users\V1\Http\Resources\User;
+namespace Domain\Users\V1\Http\Resources;
 
 use Illuminate\Http\Request;
-use Domain\Customers\V1\Models\Category;
+use Domain\Users\V1\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property Category $resource
+ * @property User $resource
  */
 class UserResource extends JsonResource
 {

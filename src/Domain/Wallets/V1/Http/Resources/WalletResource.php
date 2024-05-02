@@ -6,8 +6,8 @@ namespace Domain\Wallets\V1\Http\Resources;
 
 use Illuminate\Http\Request;
 use Domain\Wallets\V1\Models\Wallet;
+use Domain\Users\V1\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Domain\Users\V1\Http\Resources\User\UserResource;
 
 /**
  * @property Wallet $resource

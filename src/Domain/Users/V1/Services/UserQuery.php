@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Users\V1\Services;
 
-use Domain\Shared\Services\BaseServiceModel;
 use Domain\Users\V1\Models\User;
 use Illuminate\Support\Collection;
+use Domain\Shared\Services\BaseServiceModel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 abstract class UserQuery extends BaseServiceModel
 {
@@ -22,5 +23,14 @@ abstract class UserQuery extends BaseServiceModel
                 $query->where('doc_type', $docType);
             })
             ->get();
+    }
+
+    /**
+     * @throws ModelNotFoundException
+     * @return User
+     */
+    public static function findById(int $userId): User
+    {
+        return User::findOrFail($userId);
     }
 }

@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'id' => $this->resource->id,
             'name' => $this->resource->name,
             'email' => $this->resource->email,
+            'type' => $this->resource->doc_type->getLabel(),
             'doc_type' => $this->resource->doc_type,
             'doc_number' => $this->resource->doc_number,
             'timezone' => $this->resource->timezone,

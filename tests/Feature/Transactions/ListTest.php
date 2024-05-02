@@ -18,35 +18,35 @@ it('should return 200', function () {
         ->assertOk()
         ->assertJsonStructure([
             '*' => [
-                "id",
-                "value",
-                "created_at",
-                "updated_at",
-                "payer_wallet" => [
-                    "id",
-                    "balance",
-                    "user" => [
-                        "id",
-                        "name",
-                        "email",
-                        "type",
-                        "doc_type",
-                        "doc_number",
-                        "timezone"
-                    ]
+                'id',
+                'value',
+                'created_at',
+                'updated_at',
+                'payer_wallet' => [
+                    'id',
+                    'balance',
+                    'user' => [
+                        'id',
+                        'name',
+                        'email',
+                        'type',
+                        'doc_type',
+                        'doc_number',
+                        'timezone',
+                    ],
                 ],
-                "payee_wallet" => [
-                    "id",
-                    "balance",
-                    "user" => [
-                        "id",
-                        "name",
-                        "email",
-                        "type",
-                        "doc_type",
-                        "doc_number",
-                        "timezone"
-                    ]
+                'payee_wallet' => [
+                    'id',
+                    'balance',
+                    'user' => [
+                        'id',
+                        'name',
+                        'email',
+                        'type',
+                        'doc_type',
+                        'doc_number',
+                        'timezone',
+                    ],
                 ],
             ],
         ]);

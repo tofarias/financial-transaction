@@ -1,18 +1,16 @@
 <?php
 
 declare(strict_types=1);
+namespace Domain\Transaction\V1\Models;
 
-namespace Domain\Users\V1\Models;
-
-use Database\Factories\UserFactory;
-use Domain\Users\V1\Enums\EnumDocType;
+use Domain\Users\V1\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Domain\Transaction\V1\Models\Transaction;
+use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
@@ -22,11 +20,7 @@ class User extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'doc_type',
-        'doc_number',
-        'password',
+        'value',
     ];
 
     /**
@@ -35,7 +29,7 @@ class User extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        
     ];
 
     /**
@@ -44,17 +38,24 @@ class User extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'password' => 'hashed',
-        'doc_type' => EnumDocType::class,
+        
     ];
 
     protected static function newFactory(): Factory
     {
-        return UserFactory::new();
+        return TransactionFactory::new();
     }
 
-    public function transactions(): HasMany
+    public function payer(): BelongsTo
     {
-        return $this->hasMany(Transaction::class, 'payer_id');
+        return $this->belongsTo(User::class, 'payer_id');
+    }
+
+    /**
+     * Usuário lojista  
+     */
+    public function payee(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'payee_id');
     }
 }

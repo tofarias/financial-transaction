@@ -12,7 +12,6 @@ trait GetAuthorization
 {
     public function getAuthorization(): void
     {
-
         try {
             $response = $this->api
                 ->get(config('authorization.endpoints.get_authorization'))
@@ -21,11 +20,9 @@ trait GetAuthorization
             $this->unless($response->json('message') === AuthorizationEnum::MESSAGE_AUTHORIZED->value, function () {
                 throw new UnauthorizedTransactionException('Unauthorized Transaction');
             });
-
-            // dd($response->json('message'), $response->json('messageXPTO'));
+            
         } catch (RequestException $th) {
             throw new RequestException($th->response);
         }
-
     }
 }

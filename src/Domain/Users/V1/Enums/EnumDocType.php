@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Users\Enums;
+namespace Domain\Users\V1\Enums;
 
 enum EnumDocType: string
 {

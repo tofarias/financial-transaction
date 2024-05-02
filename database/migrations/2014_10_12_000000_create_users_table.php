@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Domain\Users\Enums\EnumDocType;
+use Domain\Users\V1\Enums\EnumDocType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

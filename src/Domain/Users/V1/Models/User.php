@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Users\Models;
+namespace Domain\Users\V1\Models;
 
 use Database\Factories\UserFactory;
-use Domain\Users\Enums\EnumDocType;
+use Domain\Users\V1\Enums\EnumDocType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

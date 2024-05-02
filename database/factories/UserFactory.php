@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Domain\Users\Enums\EnumDocType;
-use Domain\Users\Models\User;
+use Domain\Users\V1\Enums\EnumDocType;
+use Domain\Users\V1\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

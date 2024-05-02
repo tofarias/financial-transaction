@@ -26,6 +26,8 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'value' => $this->resource->value,
+            'created_at' => $this->resource->created_at,
+            'updated_at' => $this->resource->updated_at,
             'payer_wallet' => new WalletResource($this->resource->payerWallet),
             'payee_wallet' => new WalletResource($this->resource->payeeWallet),
         ];

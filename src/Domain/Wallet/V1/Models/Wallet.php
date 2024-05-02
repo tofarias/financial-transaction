@@ -30,7 +30,7 @@ class Wallet extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-
+        'password',
     ];
 
     /**

@@ -17,7 +17,6 @@ return new class () extends Migration {
             $table->string('email')->unique();
             $table->enum('doc_type', array_column(EnumDocType::cases(), 'value'))->default(EnumDocType::CPF);
             $table->string('doc_number')->unique();
-            $table->string('password');
             $table->string('timezone')->default('America/Sao_Paulo');
             $table->timestamps();
         });

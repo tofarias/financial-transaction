@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Domain\Users\V1\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Domain\Users\V1\Enums\EnumDocType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -36,7 +35,6 @@ class UserFactory extends Factory
                     return $this->faker->unique()->cnpj(false);
                 });
             },
-            'password' => static::$password ??= Hash::make('123'),
         ];
     }
 

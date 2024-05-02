@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Domain\Wallet\V1\Models\Wallet;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,9 @@ class WalletFactory extends Factory
     public function definition(): array
     {
         return [
+            'password' => function (array $attr) {
+                return Hash::make('000'.$attr['user_id']);
+            },
             'balance' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
         ];
     }

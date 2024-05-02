@@ -17,6 +17,7 @@ return new class () extends Migration {
                     table: 'users',
                     indexName: 'wallet_user_id'
                 );
+            $table->string('password');
             $table->double('balance', 8, 2);
 
             $table->timestamps();

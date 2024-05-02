@@ -15,18 +15,6 @@ enum EnumDocType: string
      */
     case CNPJ = 'CNPJ';
 
-    /** Usuário "comum" */
-    public function isCommon(): bool
-    {
-        return $this === self::CPF;
-    }
-
-    /** Usuário "lojista" */
-    public function isShopkeeper(): bool
-    {
-        return $this === self::CNPJ;
-    }
-
     public function getLabel(): string
     {
         return match ($this) {

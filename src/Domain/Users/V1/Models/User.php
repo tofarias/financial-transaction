@@ -52,6 +52,18 @@ class User extends Model
         return UserFactory::new();
     }
 
+    /** Usuário "comum" */
+    public function isCommon(): bool
+    {
+        return $this->doc_type === EnumDocType::CPF;
+    }
+
+    /** Usuário "lojista" */
+    public function isShopkeeper(): bool
+    {
+        return $this->doc_type === EnumDocType::CNPJ;
+    }
+
     public function wallet(): HasOne
     {
         return $this->hasOne(Wallet::class, 'user_id');

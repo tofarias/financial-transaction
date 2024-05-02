@@ -20,7 +20,7 @@ trait GetAuthorization
             $this->unless($response->json('message') === AuthorizationEnum::MESSAGE_AUTHORIZED->value, function () {
                 throw new UnauthorizedTransactionException('Unauthorized Transaction');
             });
-            
+
         } catch (RequestException $th) {
             throw new RequestException($th->response);
         }

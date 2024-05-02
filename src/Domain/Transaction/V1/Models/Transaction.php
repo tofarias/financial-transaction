@@ -47,14 +47,13 @@ class Transaction extends Model
         return TransactionFactory::new();
     }
 
-    public function payer(): BelongsTo
+    public function payerWallet(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'payer_id');
+        return $this->belongsTo(User::class, 'payer_wallet_id');
     }
 
-    /** Usuário lojista */
-    public function payee(): BelongsTo
+    public function payeeWallet(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'payee_id');
+        return $this->belongsTo(User::class, 'payee_wallet_id');
     }
 }

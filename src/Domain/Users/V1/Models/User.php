@@ -54,11 +54,6 @@ class User extends Model
         return UserFactory::new();
     }
 
-    public function transactions(): HasMany
-    {
-        return $this->hasMany(Transaction::class, 'payer_id');
-    }
-
     public function wallet(): HasOne
     {
         return $this->hasOne(Wallet::class, 'user_id');

@@ -24,7 +24,7 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'payee_id' => User::query()->where('doc_type', EnumDocType::CNPJ)->inRandomOrder()->first()->id,
+            'payee_wallet_id' => User::query()->where('doc_type', EnumDocType::CNPJ)->inRandomOrder()->first()->id,
             'value' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
         ];
     }

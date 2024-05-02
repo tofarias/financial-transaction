@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             ->create(['doc_type' => EnumDocType::CNPJ]);
 
         User::factory(1)
-            ->has(Wallet::factory(1))
-            ->has(Transaction::factory(1))
+            ->has(
+                Wallet::factory(1)->has(Transaction::factory(1), 'payerTransactinons')
+            )
             ->create([
                 'doc_type' => EnumDocType::CPF,
                 'timezone' => 'America/Sao_Paulo',
@@ -37,8 +38,9 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory(1)
-            ->has(Wallet::factory(1))
-            ->has(Transaction::factory(1))
+            ->has(
+                Wallet::factory(1)->has(Transaction::factory(1), 'payerTransactinons')
+            )
             ->create([
                 'doc_type' => EnumDocType::CPF,
                 'timezone' => 'America/Manaus',

@@ -12,17 +12,17 @@ return new class () extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payer_id')
-                ->comment('usuário pagador')
+            $table->foreignId('payer_wallet_id')
+                ->comment('carteira do usuário pagador')
                 ->constrained(
-                    table: 'users',
-                    indexName: 'transaction_payer_id'
+                    table: 'wallets',
+                    indexName: 'transaction_payer_walletid'
                 );
-            $table->foreignId('payee_id')
-                ->comment('usuário beneficiário, lojista')
+            $table->foreignId('payee_wallet_id')
+                ->comment('carteira do usuário beneficiário, lojista')
                 ->constrained(
-                    table: 'users',
-                    indexName: 'transaction_payee_id'
+                    table: 'wallets',
+                    indexName: 'transaction_payee_wallet_id'
                 );
             $table->double('value', 8, 2);
 

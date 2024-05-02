@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Services;
 
+use Domain\Integrations\V1\Api\Authorization\AuthorizationService;
 use Domain\Users\V1\Services\UserQuery;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Transaction\V1\Exceptions\TransactionException;
@@ -31,6 +32,8 @@ class CreateTransactionService extends BaseServiceExecute
             );
             WalletCommand::debit($payer->wallet, $newTransaction->value);
             WalletCommand::credit($payee->wallet, $newTransaction->value);
+
+            app(AuthorizationService::class)->getAuthorization();
 
             return $newTransaction;
         });

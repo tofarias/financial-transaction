@@ -18,17 +18,17 @@ it('should return 200', function () {
         ->assertOk()
         ->assertJsonStructure([
             '*' => [
-                "id",
-                "balance",
-                "user" => [
-                    "id",
-                    "name",
-                    "email",
-                    "type",
-                    "doc_type",
-                    "doc_number",
-                    "timezone"
-                ]
+                'id',
+                'balance',
+                'user' => [
+                    'id',
+                    'name',
+                    'email',
+                    'type',
+                    'doc_type',
+                    'doc_number',
+                    'timezone',
+                ],
             ],
         ]);
 });

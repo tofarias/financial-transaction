@@ -36,14 +36,7 @@ class UserFactory extends Factory
                     return $this->faker->unique()->cnpj(false);
                 });
             },
-            'timezone' => function (array $attr) {
-                return $this->when($attr['doc_type'] == EnumDocType::CPF, function () {
-                    return $this->faker->randomElement(['America/Sao_Paulo', 'America/Rio_Branco', 'America/Manaus']);
-                }, function () {
-                    return 'America/Sao_Paulo';
-                });
-            },
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('123'),
         ];
     }
 

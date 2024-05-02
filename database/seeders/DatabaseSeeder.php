@@ -8,7 +8,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Domain\Users\V1\Models\User;
-use Domain\Wallet\V1\Models\Wallet;
+use Domain\Wallets\V1\Models\Wallet;
 use Domain\Users\V1\Enums\EnumDocType;
 use Domain\Transaction\V1\Models\Transaction;
 

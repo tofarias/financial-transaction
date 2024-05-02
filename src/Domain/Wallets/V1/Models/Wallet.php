@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Wallet\V1\Models;
+namespace Domain\Wallets\V1\Models;
 
 use Domain\Users\V1\Models\User;
 use Database\Factories\WalletFactory;

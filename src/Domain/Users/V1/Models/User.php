@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Users\V1\Models;
 
 use Database\Factories\UserFactory;
-use Domain\Wallet\V1\Models\Wallet;
+use Domain\Wallets\V1\Models\Wallet;
 use Domain\Users\V1\Enums\EnumDocType;
 use Illuminate\Database\Eloquent\Model;
 use Domain\Transaction\V1\Models\Transaction;

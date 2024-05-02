@@ -15,15 +15,15 @@ return new class () extends Migration {
             $table->foreignId('payer_id')
                 ->comment('usuário pagador')
                 ->constrained(
-                table: 'users',
-                indexName: 'transaction_payer_id'
-            );
+                    table: 'users',
+                    indexName: 'transaction_payer_id'
+                );
             $table->foreignId('payee_id')
                 ->comment('usuário beneficiário, lojista')
                 ->constrained(
-                table: 'users',
-                indexName: 'transaction_payee_id'
-            );
+                    table: 'users',
+                    indexName: 'transaction_payee_id'
+                );
             $table->double('value', 8, 2);
 
             $table->timestamps();

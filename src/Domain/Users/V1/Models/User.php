@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Domain\Users\V1\Models;
 
 use Database\Factories\UserFactory;
+use Domain\Wallet\V1\Models\Wallet;
 use Domain\Users\V1\Enums\EnumDocType;
 use Illuminate\Database\Eloquent\Model;
 use Domain\Transaction\V1\Models\Transaction;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Model
 {
@@ -56,5 +58,10 @@ class User extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'payer_id');
+    }
+
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class, 'user_id');
     }
 }

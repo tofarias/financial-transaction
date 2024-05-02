@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Domain\Transaction\V1\Models;
+namespace Domain\Wallet\V1\Models;
 
 use Domain\Users\V1\Models\User;
+use Database\Factories\WalletFactory;
 use Illuminate\Database\Eloquent\Model;
-use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Transaction extends Model
+class Wallet extends Model
 {
     use HasFactory;
 
@@ -21,7 +21,7 @@ class Transaction extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'value',
+        'balance',
     ];
 
     /**
@@ -44,17 +44,11 @@ class Transaction extends Model
 
     protected static function newFactory(): Factory
     {
-        return TransactionFactory::new();
+        return WalletFactory::new();
     }
 
-    public function payer(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'payer_id');
-    }
-
-    /** Usuário lojista */
-    public function payee(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'payee_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

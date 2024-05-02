@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use Domain\Transaction\V1\Models\Transaction;
-use Domain\Users\V1\Enums\EnumDocType;
-use Domain\Users\V1\Models\User;
+use Domain\Wallet\V1\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class TransactionFactory extends Factory
+class WalletFactory extends Factory
 {
-    protected $model = Transaction::class;
+    protected $model = Wallet::class;
 
     /**
      * Define the model's default state.
@@ -24,8 +22,7 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'payee_id' => User::query()->where('doc_type', EnumDocType::CNPJ)->inRandomOrder()->first()->id,
-            'value' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
+            'balance' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
         ];
     }
 }

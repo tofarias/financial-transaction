@@ -22,7 +22,7 @@ use Illuminate\Database\Query\Builder;
 class CreateTransactionController extends Controller
 {
     /**
-     * List.
+     * Create.
      *
      * @param Request $request description
      * @throws Some_Exception_Class description of exception

@@ -19,16 +19,17 @@ class CreateTransactionService extends BaseServiceExecute
 
         $payer = UserQuery::findById($dtoValidData->payer);
         $payee = UserQuery::findById($dtoValidData->payee);
+        $value = $dtoValidData->value;
 
         if($payer->isShopkeeper()) {
             throw new TransactionException('Payer cannot be a shopkeeper');
         }
 
-        return DB::transaction(function () use ($payer, $payee, $dtoValidData) {
+        return DB::transaction(function () use ($payer, $payee, $value) {
             $newTransaction = TransactionCommand::create(
                 $payer->wallet,
                 $payee->wallet,
-                $dtoValidData->value
+                $value
             );
             WalletCommand::debit($payer->wallet, $newTransaction->value);
             WalletCommand::credit($payee->wallet, $newTransaction->value);

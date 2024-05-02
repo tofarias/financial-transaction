@@ -46,5 +46,20 @@ class DatabaseSeeder extends Seeder
                 'timezone' => 'America/Manaus',
             ]);
 
+        Transaction::factory(1)->create([
+            'payer_wallet_id' => User::query()
+                ->where('doc_type', EnumDocType::CPF)
+                ->inRandomOrder()
+                ->first()
+                                    ->id,
+            'payee_wallet_id' => function ($attr) {
+                return User::query()
+                    ->where('doc_type', EnumDocType::CPF)
+                    ->where('id', '!=', $attr['payer_wallet_id'])
+                    ->inRandomOrder()
+                    ->first()
+                ->id;
+            },
+        ]);
     }
 }

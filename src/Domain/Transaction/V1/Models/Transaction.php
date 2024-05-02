@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Models;
 
-use Domain\Users\V1\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\TransactionFactory;
+use Domain\Wallets\V1\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,11 +49,11 @@ class Transaction extends Model
 
     public function payerWallet(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'payer_wallet_id');
+        return $this->belongsTo(Wallet::class, 'payer_wallet_id', 'user_id');
     }
 
     public function payeeWallet(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'payee_wallet_id');
+        return $this->belongsTo(Wallet::class, 'payee_wallet_id', 'user_id');
     }
 }

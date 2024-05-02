@@ -18,12 +18,12 @@ abstract class TransactionQuery extends BaseServiceModel
      */
     public static function fetchAll(?string $docType = null): Collection
     {
-        return Transaction::query()->with(['payer', 'payee' => function ($query) use ($docType) {
+        return Transaction::query()->with(['payerWallet', 'payerWallet.user', 'payeeWallet.user' => function ($query) use ($docType) {
             $query->when($docType, function ($query) use ($docType) {
                 $query->where('doc_type', $docType);
             });
         }])
             ->get()
-            ->filter(fn (Transaction $wallet, int $key) => $wallet->payee instanceof User);
+            ->filter(fn (Transaction $wallet, int $key) => $wallet->payeeWallet->user instanceof User);
     }
 }

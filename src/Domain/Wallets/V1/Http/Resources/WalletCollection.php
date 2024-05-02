@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Wallets\V1\Http\Resources;
 
+namespace Domain\Wallets\V1\Http\Resources;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

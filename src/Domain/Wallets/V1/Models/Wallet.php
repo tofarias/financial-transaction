@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\Wallets\V1\Models;
 
+use Domain\Users\V1\Models\User;
 use Database\Factories\WalletFactory;
 use Illuminate\Database\Eloquent\Model;
 use Domain\Transaction\V1\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Wallet extends Model
@@ -45,6 +47,11 @@ class Wallet extends Model
     protected static function newFactory(): Factory
     {
         return WalletFactory::new();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function payerTransactinons(): HasMany

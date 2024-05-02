@@ -6,8 +6,8 @@ namespace Domain\Transaction\V1\Http\Resources;
 
 use Illuminate\Http\Request;
 use Domain\Transactions\V1\Models\Transaction;
-use Domain\Users\V1\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Domain\Wallets\V1\Http\Resources\WalletResource;
 
 /**
  * @property Transaction $resource
@@ -26,8 +26,8 @@ class TransactionResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'value' => $this->resource->value,
-            'payer' => new UserResource($this->resource->payer),
-            'payee' => new UserResource($this->resource->payee),
+            'payer_wallet' => new WalletResource($this->resource->payerWallet),
+            'payee_wallet' => new WalletResource($this->resource->payeeWallet),
         ];
     }
 }

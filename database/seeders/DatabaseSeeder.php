@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Domain\Users\V1\Models\User;
 use Illuminate\Database\Seeder;
+use Domain\Users\V1\Models\User;
 use Domain\Users\V1\Enums\EnumDocType;
 
 class DatabaseSeeder extends Seeder

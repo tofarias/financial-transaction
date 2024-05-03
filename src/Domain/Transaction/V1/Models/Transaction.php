@@ -67,11 +67,11 @@ class Transaction extends Model
 
     public function payerWallet(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class, 'payer_wallet_id', 'user_id');
+        return $this->belongsTo(Wallet::class, 'payer_wallet_id');
     }
 
     public function payeeWallet(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class, 'payee_wallet_id', 'user_id');
+        return $this->belongsTo(Wallet::class, 'payee_wallet_id');
     }
 }

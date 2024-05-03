@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Services;
 
-use Domain\Users\V1\Models\User;
 use Illuminate\Support\Collection;
 use Domain\Shared\Services\BaseServiceModel;
 use Domain\Transaction\V1\Models\Transaction;
@@ -16,14 +15,23 @@ abstract class TransactionQuery extends BaseServiceModel
      *
      * @return Collection
      */
-    public static function fetchAll(?string $docType = null): Collection
+    public static function fetchAll(?int $userId = null): Collection
     {
-        return Transaction::query()->with(['payerWallet', 'payerWallet.user', 'payeeWallet.user' => function ($query) use ($docType) {
-            $query->when($docType, function ($query) use ($docType) {
-                $query->where('doc_type', $docType);
-            });
-        }])
+        return Transaction::query()->with([
+            'payerWallet.user',
+            'payeeWallet.user',
+        ])
             ->get()
-            ->filter(fn (Transaction $wallet, int $key) => $wallet->payeeWallet->user instanceof User);
+            ->filter(function (Transaction $transaction, int $key) use ($userId) {
+                if($userId) {
+                    if($transaction->payerWallet->user->id == $userId) {
+                        return true;
+                    }
+
+                    return (bool) ($transaction->payeeWallet->user->id == $userId);
+                }
+
+                return true;
+            });
     }
 }

@@ -10,6 +10,8 @@ class ListTransactionsService extends BaseServiceExecute
 {
     public function execute(): mixed
     {
-        return TransactionQuery::fetchAll($this->dto->valid_data->doc_type);
+        $userId = (int) $this->dto->valid_data->user_id;
+
+        return TransactionQuery::fetchAll($userId);
     }
 }

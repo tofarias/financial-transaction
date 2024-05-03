@@ -34,10 +34,6 @@ abstract class WalletCommand extends BaseServiceModel
      */
     public static function credit(Wallet $payeeWallet, $value): void
     {
-        if( ! $payeeWallet->user->isShopkeeper()) {
-            throw new WalletException('Payee is not a SHOPKEEPER user');
-        }
-
         $payeeWallet->balance += $value;
         $payeeWallet->save();
     }

@@ -13,7 +13,7 @@ use Domain\Transaction\V1\Exceptions\TransactionException;
 abstract class TransactionCommand extends BaseServiceModel
 {
     /**
-     * Fetch all transactions from the database.
+     * Create a transaction.
      *
      * @return Collection
      */

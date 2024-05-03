@@ -31,6 +31,7 @@ class CreateTransactionService extends BaseServiceExecute
                 $payee->wallet,
                 $value
             );
+
             WalletCommand::debit($payer->wallet, $newTransaction->value);
             WalletCommand::credit($payee->wallet, $newTransaction->value);
 

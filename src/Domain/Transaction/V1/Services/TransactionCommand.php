@@ -19,10 +19,6 @@ abstract class TransactionCommand extends BaseServiceModel
      */
     public static function create(Wallet $payerWallet, Wallet $payeeWallet, $value): Transaction
     {
-        if($payerWallet->balance <= 0) {
-            throw new TransactionException('Payer does not have enough balance');
-        }
-
         if($payerWallet->balance < $value) {
             throw new TransactionException('The value is greater than wallet balance');
         }

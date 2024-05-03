@@ -8,9 +8,9 @@ use Illuminate\Http\Client\RequestException;
 use Domain\Integrations\V1\Api\Authorization\Enums\AuthorizationEnum;
 use Domain\Integrations\V1\Api\Authorization\Exceptions\UnauthorizedTransactionException;
 
-trait GetAuthorization
+trait RequestAuthorization
 {
-    public function getAuthorization(): void
+    public function requestAuthorization(): void
     {
         try {
             $response = $this->api

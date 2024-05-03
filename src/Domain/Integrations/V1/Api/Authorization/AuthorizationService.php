@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Integrations\V1\Api\Authorization;
 
+use Domain\Integrations\V1\Api\Authorization\Endpoints\RequestAuthorization;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
-use Domain\Integrations\V1\Api\Authorization\Endpoints\GetAuthorization;
 use Illuminate\Support\Traits\Conditionable;
 
 class AuthorizationService
 {
-    use GetAuthorization;
+    use RequestAuthorization;
     use Conditionable;
 
     protected PendingRequest $api;

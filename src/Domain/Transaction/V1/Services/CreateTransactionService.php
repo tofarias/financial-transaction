@@ -11,7 +11,7 @@ use Domain\Wallets\V1\Services\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
 use Domain\Transaction\V1\Exceptions\TransactionException;
-use Domain\Integrations\V1\Api\Authorization\AuthorizationService;
+use Domain\Integrations\Authorization\AuthorizationService;
 
 class CreateTransactionService extends BaseServiceExecute
 {

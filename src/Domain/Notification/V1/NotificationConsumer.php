@@ -11,7 +11,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Traits\Conditionable;
 use Domain\Notification\V1\Enums\NotificationEnum;
 use Domain\Notification\V1\Exceptions\NotificationException;
-use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\ConsumerInterface;
+use Domain\Integrations\RabbitMQ\Interfaces\ConsumerInterface;
 
 class NotificationConsumer
 {

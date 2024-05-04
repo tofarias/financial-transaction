@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Api\Authorization\Exceptions;
+namespace Domain\Integrations\Authorization\Exceptions;
 
 use DomainException;
 use Exception;

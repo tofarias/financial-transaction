@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Notification\V1;
 
-use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\PublisherInterface;
+use Domain\Integrations\RabbitMQ\Interfaces\PublisherInterface;
 use Domain\Transaction\V1\Models\Transaction;
 
 class NotificationPublisher

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Services\RabbitMQ\Interfaces;
+namespace Domain\Integrations\RabbitMQ\Interfaces;
 
 interface PublisherInterface
 {

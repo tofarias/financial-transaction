@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Api\Authorization\Enums;
+namespace Domain\Integrations\Authorization\Enums;
 
 enum AuthorizationEnum: string
 {

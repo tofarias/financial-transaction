@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Api\Authorization;
+namespace Domain\Integrations\Authorization;
 
-use Domain\Integrations\V1\Api\Authorization\Endpoints\RequestAuthorization;
+use Domain\Integrations\Authorization\Endpoints\RequestAuthorization;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Traits\Conditionable;

@@ -26,7 +26,7 @@ class WalletFactory extends Factory
             'password' => function (array $attr) {
                 return Hash::make('000'.$attr['user_id']);
             },
-            'balance' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
+            'balance' => $this->faker->randomFloat(2, $min = 1000, $max = 10000),
         ];
     }
 }

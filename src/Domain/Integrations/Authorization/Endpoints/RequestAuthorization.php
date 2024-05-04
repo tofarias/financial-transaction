@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Api\Authorization\Endpoints;
+namespace Domain\Integrations\Authorization\Endpoints;
 
 use Illuminate\Http\Client\RequestException;
-use Domain\Integrations\V1\Api\Authorization\Enums\AuthorizationEnum;
+use Domain\Integrations\Authorization\Enums\AuthorizationEnum;
 
 trait RequestAuthorization
 {

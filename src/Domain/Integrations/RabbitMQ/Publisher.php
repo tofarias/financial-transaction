@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Services\RabbitMQ;
+namespace Domain\Integrations\RabbitMQ;
 
-use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\PublisherInterface;
+use Domain\Integrations\RabbitMQ\Interfaces\PublisherInterface;
 use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Message\AMQPMessage;
 

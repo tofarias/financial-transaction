@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Services\RabbitMQ;
+namespace Domain\Integrations\RabbitMQ;
 
 use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Channel\AMQPChannel;

@@ -15,7 +15,7 @@ it('should return 200', function () {
     postJson(
         route('v1:transactions.transfer'),
         [
-            'value' => 101,
+            'value' => 11,
             'payer' => 4,
             'payee' => 2,
         ]

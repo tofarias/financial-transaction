@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain\Integrations\V1\Services\RabbitMQ;
+namespace Domain\Integrations\RabbitMQ;
 
 use Illuminate\Support\Facades\Log;
-use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\ConsumerInterface;
+use Domain\Integrations\RabbitMQ\Interfaces\ConsumerInterface;
 
 class Consumer extends RabbitMQ implements ConsumerInterface
 {

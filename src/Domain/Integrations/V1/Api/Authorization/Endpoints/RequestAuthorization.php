@@ -6,20 +6,17 @@ namespace Domain\Integrations\V1\Api\Authorization\Endpoints;
 
 use Illuminate\Http\Client\RequestException;
 use Domain\Integrations\V1\Api\Authorization\Enums\AuthorizationEnum;
-use Domain\Integrations\V1\Api\Authorization\Exceptions\UnauthorizedTransactionException;
 
 trait RequestAuthorization
 {
-    public function requestAuthorization(): void
+    public function isAuthorized(): bool
     {
         try {
             $response = $this->api
                 ->get(config('authorization.endpoints.get_authorization'))
                 ->throw();
 
-            $this->unless($response->json('message') === AuthorizationEnum::MESSAGE_AUTHORIZED->value, function () {
-                throw new UnauthorizedTransactionException('Unauthorized Transaction');
-            });
+            return $response->json('message') !== AuthorizationEnum::MESSAGE_AUTHORIZED->value;
 
         } catch (RequestException $th) {
             throw new RequestException($th->response);

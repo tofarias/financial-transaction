@@ -33,6 +33,7 @@ abstract class RabbitMQ
     {
         $this->channel->queue_declare($queue, false, true, false, false);
         Log::debug('Queue created: ' . $queue);
+
         return $this;
     }
 
@@ -40,6 +41,7 @@ abstract class RabbitMQ
     {
         $this->channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
         Log::debug('Exchange created: ' . $exchange);
+
         return $this;
     }
 
@@ -47,6 +49,7 @@ abstract class RabbitMQ
     {
         $this->channel->queue_bind($queue, $exchange);
         Log::debug('Binding created: ' . $queue . ' -> ' . $exchange);
+
         return $this;
     }
 

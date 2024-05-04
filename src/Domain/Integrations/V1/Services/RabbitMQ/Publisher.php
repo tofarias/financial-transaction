@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Integrations\V1\Services\RabbitMQ;
 
+use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class Publisher extends RabbitMQ
@@ -16,10 +17,12 @@ class Publisher extends RabbitMQ
 
         $this->amqpMessage = new AMQPMessage($message, $properties);
         parent::__construct();
+        Log::debug('RabbitMQ Publisher started');
     }
 
     public function publish(string $exchange, string $routingKey)
     {
         $this->channel->basic_publish($this->amqpMessage, $exchange, $routingKey);
+        Log::debug('Message published to RabbitMQ');
     }
 }

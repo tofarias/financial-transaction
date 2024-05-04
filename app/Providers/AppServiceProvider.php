@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Domain\Integrations\V1\Services\RabbitMQ\Consumer;
 use Domain\Integrations\V1\Services\RabbitMQ\Publisher;
+use Domain\Notification\V1\NotificationConsumer;
 use Domain\Notification\V1\NotificationPublisher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(NotificationPublisher::class, function ($app) {
             return new NotificationPublisher(new Publisher());
+        });
+
+        $this->app->bind(NotificationConsumer::class, function ($app) {
+            return new NotificationConsumer(new Consumer());
         });
     }
 

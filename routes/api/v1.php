@@ -15,4 +15,5 @@ Route::get('/', function () {
 Route::get('/users', ListUsersController::class)->name('users.index');
 Route::get('/wallets', ListWalletsController::class)->name('wallets.index');
 Route::get('/transactions', ListTransactionsController::class)->name('transactions.index');
-Route::post('/transfer', CreateTransactionController::class);
+Route::post('/transfer', [CreateTransactionController::class, 'transfer']);
+Route::post('/consumer', [CreateTransactionController::class, 'consumer']);

@@ -9,7 +9,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-class RAbbitMQ
+abstract class RabbitMQ
 {
     protected AMQPStreamConnection $conn;
     protected AMQPChannel $channel;
@@ -30,16 +30,19 @@ class RAbbitMQ
     public function setQueue(string $queue)
     {
         $this->channel->queue_declare($queue, false, true, false, false);
+        return $this;
     }
 
     public function setExchange(string $exchange)
     {
         $this->channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
+        return $this;
     }
 
     public function setBind(string $queue, string $exchange)
     {
         $this->channel->queue_bind($queue, $exchange);
+        return $this;
     }
 
     public function close()

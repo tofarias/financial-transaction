@@ -30,7 +30,7 @@ class Consumer extends RabbitMQ implements ConsumerInterface
                 echo "\n--------\n";
 
                 $message->ack();
-                
+
                 if ($message->body === 'quit') {
                     $message->getChannel()->basic_cancel($message->getConsumerTag());
                 }

@@ -7,7 +7,6 @@ namespace Domain\Transaction\V1\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Domain\Notification\V1\NotificationConsumer;
 use Domain\Shared\Helpers\RequestDTO;
 use Domain\Users\V1\Enums\EnumDocType;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +28,7 @@ class CreateTransactionController extends Controller
      * @throws Some_Exception_Class description of exception
      * @return TransactionCollection
      */
-    public function transfer(Request $request)
+    public function __invoke(Request $request)
     {
         $validData = $request->validate([
             'value' => 'required|numeric|gt:0',
@@ -49,11 +48,6 @@ class CreateTransactionController extends Controller
 
         return (new TransactionResource($data))
             ->response()
-            ->setStatusCode(Response::HTTP_OK);
-    }
-
-    public function consumer(Request $request)
-    {
-        app(NotificationConsumer::class)->receiveNotification($request->transaction);
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 }

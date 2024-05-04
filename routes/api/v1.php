@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Transaction\V1\Http\Controllers\ConsumerTransactionController;
 use Domain\Transaction\V1\Http\Controllers\CreateTransactionController;
 use Domain\Transaction\V1\Http\Controllers\ListTransactionsController;
 use Domain\Users\V1\Http\Controllers\ListUsersController;
@@ -15,5 +16,5 @@ Route::get('/', function () {
 Route::get('/users', ListUsersController::class)->name('users.index');
 Route::get('/wallets', ListWalletsController::class)->name('wallets.index');
 Route::get('/transactions', ListTransactionsController::class)->name('transactions.index');
-Route::post('/transfer', [CreateTransactionController::class, 'transfer']);
-Route::post('/consumer', [CreateTransactionController::class, 'consumer']);
+Route::post('/transfer', CreateTransactionController::class)->name('transactions.transfer');
+Route::post('/consumer', ConsumerTransactionController::class);

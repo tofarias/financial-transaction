@@ -21,6 +21,7 @@ abstract class TransactionQuery extends BaseServiceModel
             'payerWallet.user',
             'payeeWallet.user',
         ])
+            ->orderBy('id', 'desc')
             ->get()
             ->filter(function (Transaction $transaction, int $key) use ($userId) {
                 if($userId) {

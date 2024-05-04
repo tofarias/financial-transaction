@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Services;
 
+use Throwable;
 use Illuminate\Support\Facades\DB;
 use Domain\Users\V1\Services\UserQuery;
 use Domain\Wallets\V1\Services\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
+use Domain\Notification\V1\NotificationService;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\V1\Api\Authorization\AuthorizationService;
-use Throwable;
 
 class CreateTransactionService extends BaseServiceExecute
 {
@@ -42,6 +43,8 @@ class CreateTransactionService extends BaseServiceExecute
                 WalletCommand::debit($payer->wallet, $newTransaction->value);
                 WalletCommand::credit($payee->wallet, $newTransaction->value);
             });
+
+            app(NotificationService::class)->notify($newTransaction);
 
             DB::commit();
 

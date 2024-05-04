@@ -33,4 +33,11 @@ abstract class TransactionCommand extends BaseServiceModel
             'payee_wallet_id' => $payeeWallet->id,
         ]);
     }
+
+    /** Update 'is_authorized' field. */
+    public static function updateStatus(int $transactionId, bool $isAuthorized): void
+    {
+        $transaction = TransactionQuery::findById($transactionId);
+        $transaction->updateOrFail(['is_authorized' => $isAuthorized]);
+    }
 }

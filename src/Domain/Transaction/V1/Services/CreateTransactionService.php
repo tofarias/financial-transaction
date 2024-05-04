@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Services;
 
-use Domain\Integrations\V1\Api\Authorization\AuthorizationService;
+use Illuminate\Support\Facades\DB;
 use Domain\Users\V1\Services\UserQuery;
+use Domain\Wallets\V1\Services\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Transaction\V1\Exceptions\TransactionException;
-use Domain\Wallets\V1\Services\WalletCommand;
-use Illuminate\Support\Facades\DB;
+use Domain\Integrations\V1\Api\Authorization\AuthorizationService;
+use Throwable;
 
 class CreateTransactionService extends BaseServiceExecute
 {
@@ -25,19 +26,30 @@ class CreateTransactionService extends BaseServiceExecute
             throw new TransactionException('Payer cannot be a shopkeeper');
         }
 
-        return DB::transaction(function () use ($payer, $payee, $value) {
+        DB::beginTransaction();
+
+        try {
             $newTransaction = TransactionCommand::create(
                 $payer->wallet,
                 $payee->wallet,
                 $value
             );
 
-            WalletCommand::debit($payer->wallet, $newTransaction->value);
-            WalletCommand::credit($payee->wallet, $newTransaction->value);
+            $isAuthorized = app(AuthorizationService::class)->isAuthorized();
+            TransactionCommand::updateStatus($newTransaction->id, $isAuthorized);
 
-            app(AuthorizationService::class)->requestAuthorization();
+            $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
+                WalletCommand::debit($payer->wallet, $newTransaction->value);
+                WalletCommand::credit($payee->wallet, $newTransaction->value);
+            });
 
-            return $newTransaction;
-        });
+            DB::commit();
+
+            return $newTransaction->fresh();
+        } catch (Throwable $th) {
+            DB::rollBack();
+
+            throw $th;
+        }
     }
 }

@@ -26,6 +26,7 @@ class TransactionFactory extends Factory
         return [
             'payee_wallet_id' => User::query()->where('doc_type', EnumDocType::CNPJ)->inRandomOrder()->first()->id,
             'value' => $this->faker->randomFloat(2, $min = 0, $max = 1000),
+            'is_authorized' => $this->faker->boolean(),
         ];
     }
 }

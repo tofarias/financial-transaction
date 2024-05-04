@@ -26,6 +26,7 @@ class Transaction extends Model
         'value',
         'payer_wallet_id',
         'payee_wallet_id',
+        'is_authorized',
     ];
 
     /**

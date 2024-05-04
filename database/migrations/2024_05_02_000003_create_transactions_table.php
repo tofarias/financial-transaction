@@ -25,6 +25,7 @@ return new class () extends Migration {
                     indexName: 'transaction_payee_wallet_id'
                 );
             $table->double('value', 8, 2);
+            $table->boolean('is_authorized')->default(0);
 
             $table->timestamps();
         });

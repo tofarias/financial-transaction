@@ -34,4 +34,13 @@ abstract class TransactionQuery extends BaseServiceModel
                 return true;
             });
     }
+
+    /**
+     * @throws ModelNotFoundException
+     * @return Transaction
+     */
+    public static function findById(int $userId): Transaction
+    {
+        return Transaction::findOrFail($userId);
+    }
 }

@@ -45,9 +45,9 @@ abstract class RabbitMQ
         return $this;
     }
 
-    public function setBind(string $queue, string $exchange)
+    public function setBind(string $queue, string $exchange, string $routingKey)
     {
-        $this->channel->queue_bind($queue, $exchange);
+        $this->channel->queue_bind($queue, $exchange, $routingKey);
         Log::debug('Binding created: ' . $queue . ' -> ' . $exchange);
 
         return $this;

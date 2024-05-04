@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Domain\Integrations\V1\Services\RabbitMQ;
 
+use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\PublisherInterface;
 use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Publisher extends RabbitMQ
+class Publisher extends RabbitMQ implements PublisherInterface
 {
     public function __construct()
     {

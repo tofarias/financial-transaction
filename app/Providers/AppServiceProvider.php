@@ -20,9 +20,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(NotificationPublisher::class, function ($app) {
-            $publicher = new Publisher('A New transaction has been created successfully!');
-
-            return new NotificationPublisher($publicher);
+            return new NotificationPublisher(new Publisher());
         });
     }
 

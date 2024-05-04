@@ -12,6 +12,6 @@ return [
         'queue' => 'TransactionCreatedQueue',
         'exchange' => 'TransactionEx',
         'bind' => 'TransactionCreatedQueue',
-        'routing_key' => 'transaction_created_route'
-    ]
+        'routing_key' => 'transaction_created_route',
+    ],
 ];

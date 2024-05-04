@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Notification\V1;
 
+use Domain\Integrations\V1\Services\RabbitMQ\Interfaces\PublisherInterface;
 use Domain\Transaction\V1\Models\Transaction;
-use Domain\Integrations\V1\Services\RabbitMQ\Publisher;
 
 class NotificationPublisher
 {
-    public function __construct(private Publisher $publisher)
+    public function __construct(private PublisherInterface $publisher)
     {
     }
 

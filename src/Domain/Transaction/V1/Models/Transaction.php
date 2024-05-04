@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Models;
 
+use Illuminate\Support\Carbon;
+use Domain\Wallets\V1\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\TransactionFactory;
-use Domain\Wallets\V1\Models\Wallet;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Carbon;
 
 class Transaction extends Model
 {
     use HasFactory;
+    use HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -46,6 +48,11 @@ class Transaction extends Model
     protected $casts = [
 
     ];
+
+    public function uniqueIds(): array
+    {
+        return ['signature'];
+    }
 
     public function createdAt(): Attribute
     {

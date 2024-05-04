@@ -40,8 +40,8 @@ abstract class TransactionQuery extends BaseServiceModel
      * @throws ModelNotFoundException
      * @return Transaction
      */
-    public static function findById(int $userId): Transaction
+    public static function findById(int $transactionId): Transaction
     {
-        return Transaction::findOrFail($userId);
+        return Transaction::findOrFail($transactionId);
     }
 }

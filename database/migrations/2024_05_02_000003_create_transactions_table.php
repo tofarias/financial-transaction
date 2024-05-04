@@ -24,6 +24,7 @@ return new class () extends Migration {
                     table: 'wallets',
                     indexName: 'transaction_payee_wallet_id'
                 );
+            $table->uuid('signature');
             $table->double('value', 8, 2);
             $table->boolean('is_authorized')->default(0);
 

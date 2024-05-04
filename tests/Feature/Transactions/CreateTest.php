@@ -29,11 +29,11 @@ it('should return 200', function () {
             'updated_at',
             'payer_wallet' => [
                 'id',
-                'balance'
+                'balance',
             ],
             'payee_wallet' => [
                 'id',
-                'balance'
+                'balance',
             ],
         ]);
 });

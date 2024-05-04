@@ -9,20 +9,20 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class Publisher extends RabbitMQ
 {
-    public function __construct(string $message, array $properties = [])
+    public function __construct()
     {
-        if(empty($properties)) {
-            $properties = ['content_type' => 'text/plain', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT];
-        }
-
-        $this->amqpMessage = new AMQPMessage($message, $properties);
         parent::__construct();
         Log::debug('RabbitMQ Publisher started');
     }
 
-    public function publish(string $exchange, string $routingKey)
+    public function basicPublish(string $message, string $exchange, string $routingKey)
     {
-        $this->channel->basic_publish($this->amqpMessage, $exchange, $routingKey);
+        $properties = ['content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT];
+        $amqpMessage = new AMQPMessage($message, $properties);
+
+        $this->channel->basic_publish($amqpMessage, $exchange, $routingKey);
         Log::debug('Message published to RabbitMQ');
+
+        return $this;
     }
 }

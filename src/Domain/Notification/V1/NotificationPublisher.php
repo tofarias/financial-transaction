@@ -18,10 +18,10 @@ class NotificationPublisher
         $message = $transaction->toJson();
 
         $this->publisher
-            ->setQueue('TransactionCreatedQueue')
-            ->setExchange('TransactionEx')
-            ->setBind('TransactionCreatedQueue', 'TransactionEx', 'transaction_created_route')
-            ->basicPublish($message, 'TransactionEx', 'transaction_created_route')
+            ->setQueue(config('rabbitmq.transaction.queue'))
+            ->setExchange(config('rabbitmq.transaction.exchange'))
+            ->setBind(config('rabbitmq.transaction.queue'), config('rabbitmq.transaction.exchange'), config('rabbitmq.transaction.routing_key'))
+            ->basicPublish($message, config('rabbitmq.transaction.exchange'), config('rabbitmq.transaction.routing_key'))
             ->close();
     }
 }

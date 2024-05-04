@@ -51,8 +51,7 @@ class CreateTransactionService extends BaseServiceExecute
             return $newTransaction->fresh();
         } catch (Throwable $th) {
             DB::rollBack();
-
-            throw $th;
+            throw new TransactionException($th->getMessage());
         }
     }
 }

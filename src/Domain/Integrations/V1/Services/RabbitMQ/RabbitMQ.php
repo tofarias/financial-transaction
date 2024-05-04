@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Integrations\V1\Services\RabbitMQ;
 
+use Illuminate\Support\Facades\Log;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Exchange\AMQPExchangeType;
@@ -25,23 +26,27 @@ abstract class RabbitMQ
             config('rabbitmq.vhost')
         );
         $this->channel = $this->conn->channel();
+        Log::debug('RabbitMQ connection created');
     }
 
     public function setQueue(string $queue)
     {
         $this->channel->queue_declare($queue, false, true, false, false);
+        Log::debug('Queue created: ' . $queue);
         return $this;
     }
 
     public function setExchange(string $exchange)
     {
         $this->channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
+        Log::debug('Exchange created: ' . $exchange);
         return $this;
     }
 
     public function setBind(string $queue, string $exchange)
     {
         $this->channel->queue_bind($queue, $exchange);
+        Log::debug('Binding created: ' . $queue . ' -> ' . $exchange);
         return $this;
     }
 
@@ -49,5 +54,6 @@ abstract class RabbitMQ
     {
         $this->channel->close();
         $this->conn->close();
+        Log::debug('RabbitMQ connection closed');
     }
 }

@@ -7,10 +7,11 @@ namespace Domain\Transaction\V1\Infra;
 use Illuminate\Support\Collection;
 use Domain\Shared\Services\BaseServiceModel;
 use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionQuery as TransactionQueryInterface;
 use Domain\Transaction\V1\Models\Transaction;
 use Illuminate\Support\Facades\Cache;
 
-abstract class TransactionQuery extends BaseServiceModel
+final class TransactionQuery extends BaseServiceModel implements TransactionQueryInterface
 {
     /**
      * Fetch all transactions from the database.
@@ -37,10 +38,6 @@ abstract class TransactionQuery extends BaseServiceModel
         });
     }
 
-    /**
-     * @throws ModelNotFoundException
-     * @return Transaction
-     */
     public static function findById(int $transactionId): Transaction
     {
         return Transaction::findOrFail($transactionId);

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Transaction\V1\Services;
 
 use Domain\Shared\Services\BaseServiceExecute;
-use Domain\Transaction\V1\Infra\TransactionQuery;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionQuery;
 
 class ListTransactionsService extends BaseServiceExecute
 {
@@ -13,6 +13,6 @@ class ListTransactionsService extends BaseServiceExecute
     {
         $userId = (int) $this->dto->valid_data->user_id;
 
-        return TransactionQuery::fetchAll($userId);
+        return app(TransactionQuery::class)->fetchAll($userId);
     }
 }

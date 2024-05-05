@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\ServiceProvider;
 use Domain\Integrations\RabbitMQ\Consumer;
 use Domain\Integrations\RabbitMQ\Publisher;
 use Domain\Notification\V1\NotificationConsumer;
-use Domain\Notification\V1\NotificationPublisher;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Domain\Notification\V1\NotificationPublisher;
+
+use Domain\Transaction\V1\Infra\{TransactionCommand, TransactionQuery};
+use Domain\Transaction\V1\Infra\Interfaces\
+{TransactionCommand as TransactionCommandInterface, TransactionQuery as TransactionQueryInterface};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,13 +25,8 @@ class AppServiceProvider extends ServiceProvider
             return \Faker\Factory::create('pt_BR');
         });
 
-        $this->app->bind(NotificationPublisher::class, function ($app) {
-            return new NotificationPublisher(new Publisher());
-        });
-
-        $this->app->bind(NotificationConsumer::class, function ($app) {
-            return new NotificationConsumer(new Consumer());
-        });
+        $this->bindNotifications();
+        $this->bindTransactions();
     }
 
     /** Bootstrap any application services. */
@@ -35,5 +34,27 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
         Model::shouldBeStrict( ! $this->app->environment('production'));
+    }
+
+    public function bindTransactions(): void
+    {
+        $this->app->bind(TransactionCommandInterface::class, function ($app) {
+            return new TransactionCommand();
+        });
+
+        $this->app->bind(TransactionQueryInterface::class, function ($app) {
+            return new TransactionQuery();
+        });
+    }
+
+    public function bindNotifications(): void
+    {
+        $this->app->bind(NotificationPublisher::class, function ($app) {
+            return new NotificationPublisher(new Publisher());
+        });
+
+        $this->app->bind(NotificationConsumer::class, function ($app) {
+            return new NotificationConsumer(new Consumer());
+        });
     }
 }

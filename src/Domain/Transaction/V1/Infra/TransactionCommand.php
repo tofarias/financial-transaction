@@ -9,8 +9,10 @@ use Domain\Wallets\V1\Models\Wallet;
 use Domain\Shared\Services\BaseServiceModel;
 use Domain\Transaction\V1\Models\Transaction;
 use Domain\Transaction\V1\Exceptions\TransactionException;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionCommand as TransactionCommandInterface;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionQuery;
 
-abstract class TransactionCommand extends BaseServiceModel
+final class TransactionCommand extends BaseServiceModel implements TransactionCommandInterface
 {
     /**
      * Create a transaction.
@@ -37,7 +39,7 @@ abstract class TransactionCommand extends BaseServiceModel
     /** Update 'is_authorized' field. */
     public static function updateStatus(int $transactionId, bool $isAuthorized): void
     {
-        $transaction = TransactionQuery::findById($transactionId);
+        $transaction = app(TransactionQuery::class)->findById($transactionId);
         $transaction->updateOrFail(['is_authorized' => $isAuthorized]);
     }
 }

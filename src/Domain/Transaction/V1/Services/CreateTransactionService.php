@@ -12,9 +12,9 @@ use Domain\Wallets\V1\Infra\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
 use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
-use Domain\Transaction\V1\Infra\TransactionCommand;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\Authorization\AuthorizationService;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionCommand;
 
 class CreateTransactionService extends BaseServiceExecute
 {
@@ -33,14 +33,14 @@ class CreateTransactionService extends BaseServiceExecute
         DB::beginTransaction();
 
         try {
-            $newTransaction = TransactionCommand::create(
+            $newTransaction = app(TransactionCommand::class)->create(
                 $payer->wallet,
                 $payee->wallet,
                 $value
             );
 
             $isAuthorized = app(AuthorizationService::class)->isAuthorized();
-            TransactionCommand::updateStatus($newTransaction->id, $isAuthorized);
+            app(TransactionCommand::class)->updateStatus($newTransaction->id, $isAuthorized);
 
             $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
                 WalletCommand::debit($payer->wallet, $newTransaction->value);

@@ -32,6 +32,7 @@ class ListUsersController extends Controller
     {
         $validData = $request->validate([
             'doc_type' => ['nullable', Rule::in(EnumDocType::cases())],
+            'id' => ['nullable', 'exists:users,id'],
         ]);
 
         $dto = app(RequestDTO::class);

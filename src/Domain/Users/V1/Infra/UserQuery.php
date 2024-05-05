@@ -16,11 +16,14 @@ abstract class UserQuery extends BaseServiceModel
      *
      * @return Collection
      */
-    public static function fetchAll(?string $docType = null): Collection
+    public static function fetchAll(?string $docType = null, ?string $userId = null): Collection
     {
         return User::query()
             ->when($docType, function ($query) use ($docType) {
                 $query->where('doc_type', $docType);
+            })
+            ->when($userId, function ($query) use ($userId) {
+                $query->where('id', $userId);
             })
             ->get();
     }

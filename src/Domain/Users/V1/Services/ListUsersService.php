@@ -11,6 +11,9 @@ class ListUsersService extends BaseServiceExecute
 {
     public function execute(): mixed
     {
-        return UserQuery::fetchAll($this->dto->valid_data->doc_type);
+        $docType = $this->dto->valid_data->doc_type;
+        $userId = $this->dto->valid_data->id;
+
+        return UserQuery::fetchAll($docType, $userId);
     }
 }

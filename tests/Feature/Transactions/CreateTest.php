@@ -10,7 +10,7 @@ beforeEach(function () {
     $this->seed(DatabaseSeeder::class);
 });
 
-it('should return 200', function () {
+it('should return 201', function () {
 
     postJson(
         route('v1:transactions.transfer'),

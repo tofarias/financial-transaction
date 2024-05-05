@@ -6,10 +6,12 @@ namespace Domain\Transaction\V1\Services;
 
 use Throwable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Domain\Users\V1\Services\UserQuery;
 use Domain\Wallets\V1\Services\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
+use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\Authorization\AuthorizationService;
 
@@ -48,11 +50,19 @@ class CreateTransactionService extends BaseServiceExecute
 
             DB::commit();
 
+            self::cacheForget($payer->id, $payee->id);
+
             return $newTransaction->fresh();
         } catch (Throwable $th) {
             DB::rollBack();
 
             throw new TransactionException($th->getMessage());
         }
+    }
+
+    protected static function cacheForget(int $payerId, int $payeeId): void
+    {
+        Cache::forget(CacheFetchAllEnum::FETCH_ALL->value.$payerId);
+        Cache::forget(CacheFetchAllEnum::FETCH_ALL->value.$payeeId);
     }
 }

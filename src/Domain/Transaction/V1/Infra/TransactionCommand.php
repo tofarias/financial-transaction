@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Transaction\V1\Services;
+namespace Domain\Transaction\V1\Infra;
 
 use Illuminate\Support\Collection;
 use Domain\Wallets\V1\Models\Wallet;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Wallets\V1\Services;
+namespace Domain\Wallets\V1\Infra;
 
 use Domain\Shared\Services\BaseServiceModel;
 use Domain\Users\V1\Models\User;

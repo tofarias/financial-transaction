@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Transaction\V1\Exceptions;
+namespace Domain\Wallets\V1\Exceptions;
 
 use Exception;
 

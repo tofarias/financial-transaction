@@ -6,12 +6,13 @@ namespace Domain\Transaction\V1\Services;
 
 use Throwable;
 use Illuminate\Support\Facades\DB;
+use Domain\Users\V1\Infra\UserQuery;
 use Illuminate\Support\Facades\Cache;
-use Domain\Users\V1\Services\UserQuery;
-use Domain\Wallets\V1\Services\WalletCommand;
+use Domain\Wallets\V1\Infra\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
 use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
+use Domain\Transaction\V1\Infra\TransactionCommand;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\Authorization\AuthorizationService;
 

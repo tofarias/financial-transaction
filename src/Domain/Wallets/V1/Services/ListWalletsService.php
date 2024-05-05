@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Wallets\V1\Services;
 
+use Domain\Wallets\V1\Infra\WalletQuery;
 use Domain\Shared\Services\BaseServiceExecute;
 
 class ListWalletsService extends BaseServiceExecute

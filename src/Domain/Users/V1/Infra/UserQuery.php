@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Users\V1\Services;
+namespace Domain\Users\V1\Infra;
 
 use Domain\Users\V1\Models\User;
 use Illuminate\Support\Collection;

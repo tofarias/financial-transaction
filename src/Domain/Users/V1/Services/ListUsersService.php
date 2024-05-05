@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Users\V1\Services;
 
+use Domain\Users\V1\Infra\UserQuery;
 use Domain\Shared\Services\BaseServiceExecute;
 
 class ListUsersService extends BaseServiceExecute

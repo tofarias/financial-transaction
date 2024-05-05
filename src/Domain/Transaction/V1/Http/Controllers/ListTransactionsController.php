@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Transaction\V1\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Domain\Shared\Helpers\RequestDTO;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,10 @@ class ListTransactionsController extends Controller
      * List.
      *
      * @param Request $request description
-     * @throws Some_Exception_Class description of exception
+     *
      * @return TransactionCollection
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $validData = $request->validate([
             /**

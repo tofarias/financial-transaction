@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Domain\Wallets\V1\Services\ListWalletsService;
 use Domain\Wallets\V1\Http\Resources\WalletResource;
 use Domain\Wallets\V1\Http\Resources\WalletCollection;
+use Illuminate\Http\JsonResponse;
 
 /**
  * ListWalletsController
@@ -24,10 +25,10 @@ class ListWalletsController extends Controller
      * List.
      *
      * @param Request $request description
-     * @throws Some_Exception_Class description of exception
+     *
      * @return WalletCollection
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $validData = $request->validate([
             'doc_type' => ['nullable', Rule::in(EnumDocType::cases())],

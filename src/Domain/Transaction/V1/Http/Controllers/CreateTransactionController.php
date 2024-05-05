@@ -6,15 +6,16 @@ namespace Domain\Transaction\V1\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Domain\Shared\Helpers\RequestDTO;
 use Domain\Users\V1\Enums\EnumDocType;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Domain\Transaction\V1\Services\CreateTransactionService;
 use Domain\Transaction\V1\Http\Resources\TransactionResource;
 use Domain\Transaction\V1\Http\Resources\TransactionCollection;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * CreateTransactions
@@ -26,10 +27,10 @@ class CreateTransactionController extends Controller
      * Transfer.
      *
      * @param Request $request description
-     * @throws Some_Exception_Class description of exception
+     *
      * @return TransactionCollection
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $validator = Validator::make(
             $request->all(),

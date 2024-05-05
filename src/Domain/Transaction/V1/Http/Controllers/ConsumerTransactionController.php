@@ -18,7 +18,7 @@ class ConsumerTransactionController extends Controller
      * Consumer.
      *
      * @param Request $request description
-     * @throws Some_Exception_Class description of exception
+     *
      */
     public function __invoke(Request $request)
     {

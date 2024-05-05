@@ -6,6 +6,7 @@ namespace Domain\Users\V1\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Domain\Shared\Helpers\RequestDTO;
 use Domain\Users\V1\Enums\EnumDocType;
@@ -24,10 +25,10 @@ class ListUsersController extends Controller
      * List.
      *
      * @param Request $request description
-     * @throws Some_Exception_Class description of exception
+     *
      * @return UserCollection
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $validData = $request->validate([
             'doc_type' => ['nullable', Rule::in(EnumDocType::cases())],

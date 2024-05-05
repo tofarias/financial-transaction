@@ -19,7 +19,7 @@ use Domain\Transaction\V1\Infra\Interfaces\
 use Domain\Users\V1\Infra\{UserQuery};
 use Domain\Users\V1\Infra\Interfaces\{UserQuery as UserQueryInterface};
 
-use Domain\Wallets\V1\Infra\{walletQuery, WalletCommand};
+use Domain\Wallets\V1\Infra\{WalletQuery, WalletCommand};
 use Domain\Wallets\V1\Infra\Interfaces\{WalletQuery as WalletQueryInterface, WalletCommand as WalletCommandInterface};
 
 class AppServiceProvider extends ServiceProvider
@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
     public function bindWallets(): void
     {
         $this->app->bind(WalletQueryInterface::class, function ($app) {
-            return new walletQuery();
+            return new WalletQuery();
         });
 
         $this->app->bind(WalletCommandInterface::class, function ($app) {

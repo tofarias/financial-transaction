@@ -7,7 +7,6 @@ namespace Domain\Transaction\V1\Services;
 use Throwable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
-use Domain\Wallets\V1\Infra\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
 use Domain\Users\V1\Infra\Interfaces\UserQuery as UserQueryInterface;

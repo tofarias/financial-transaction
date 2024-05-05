@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Domain\Wallets\V1\Infra\Interfaces;
 
 use Illuminate\Support\Collection;

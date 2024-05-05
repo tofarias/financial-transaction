@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Domain\Wallets\V1\Infra\Interfaces;
 
 use Domain\Wallets\V1\Models\Wallet;
-use Domain\Shared\Services\BaseServiceModel;
 use Domain\Wallets\V1\Exceptions\WalletException;
 
 interface WalletCommand

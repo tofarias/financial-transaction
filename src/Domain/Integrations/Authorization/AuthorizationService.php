@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Domain\Integrations\Authorization;
 
-use Domain\Integrations\Authorization\Endpoints\RequestAuthorization;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Traits\Conditionable;
+use Domain\Integrations\Authorization\Endpoints\RequestAuthorization;
 
 class AuthorizationService
 {

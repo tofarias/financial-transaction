@@ -13,10 +13,10 @@ trait RequestAuthorization
     {
         try {
             $response = $this->api
-                ->get(config('authorization.endpoints.get_authorization'))
+                ->post(config('authorization.endpoints.get_authorization'))
                 ->throw();
 
-            return $response->json('message') !== AuthorizationEnum::MESSAGE_AUTHORIZED->value;
+            return $response->json('message') === AuthorizationEnum::MESSAGE_AUTHORIZED->value;
 
         } catch (RequestException $th) {
             throw new RequestException($th->response);

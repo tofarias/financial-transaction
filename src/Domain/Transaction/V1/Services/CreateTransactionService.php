@@ -24,7 +24,7 @@ class CreateTransactionService extends BaseServiceExecute
         $value = $dtoValidData->value;
 
         if($payer->isShopkeeper()) {
-            throw new TransactionException('Payer cannot be a shopkeeper');
+            throw TransactionException::PayerCannotBeAShopkeeper();
         }
 
         DB::beginTransaction();

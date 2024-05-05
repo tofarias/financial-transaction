@@ -20,11 +20,11 @@ abstract class TransactionCommand extends BaseServiceModel
     public static function create(Wallet $payerWallet, Wallet $payeeWallet, $value): Transaction
     {
         if($payerWallet->balance < $value) {
-            throw new TransactionException('The value is greater than wallet balance');
+            throw TransactionException::ValueIsGreaterThanWalletBalance();
         }
 
         if($payerWallet->id == $payeeWallet->id) {
-            throw new TransactionException('Payer and payee cannot be in the same wallet');
+            throw TransactionException::PayerCannotTransferToHimself();
         }
 
         return Transaction::create([

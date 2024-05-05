@@ -6,15 +6,15 @@ namespace Domain\Transaction\V1\Services;
 
 use Throwable;
 use Illuminate\Support\Facades\DB;
-use Domain\Users\V1\Infra\UserQuery;
 use Illuminate\Support\Facades\Cache;
 use Domain\Wallets\V1\Infra\WalletCommand;
 use Domain\Shared\Services\BaseServiceExecute;
 use Domain\Notification\V1\NotificationService;
+use Domain\Users\V1\Infra\Interfaces\UserQuery as UserQueryInterface;
 use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\Authorization\AuthorizationService;
-use Domain\Transaction\V1\Infra\Interfaces\TransactionCommand;
+use Domain\Transaction\V1\Infra\Interfaces\TransactionCommand as TransactionCommandInterface;
 
 class CreateTransactionService extends BaseServiceExecute
 {
@@ -22,8 +22,8 @@ class CreateTransactionService extends BaseServiceExecute
     {
         $dtoValidData = $this->dto->valid_data;
 
-        $payer = UserQuery::findById($dtoValidData->payer);
-        $payee = UserQuery::findById($dtoValidData->payee);
+        $payer = app(UserQueryInterface::class)->findById($dtoValidData->payer);
+        $payee = app(UserQueryInterface::class)->findById($dtoValidData->payee);
         $value = $dtoValidData->value;
 
         if($payer->isShopkeeper()) {
@@ -33,14 +33,14 @@ class CreateTransactionService extends BaseServiceExecute
         DB::beginTransaction();
 
         try {
-            $newTransaction = app(TransactionCommand::class)->create(
+            $newTransaction = app(TransactionCommandInterface::class)->create(
                 $payer->wallet,
                 $payee->wallet,
                 $value
             );
 
             $isAuthorized = app(AuthorizationService::class)->isAuthorized();
-            app(TransactionCommand::class)->updateStatus($newTransaction->id, $isAuthorized);
+            app(TransactionCommandInterface::class)->updateStatus($newTransaction->id, $isAuthorized);
 
             $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
                 WalletCommand::debit($payer->wallet, $newTransaction->value);

@@ -16,6 +16,9 @@ use Domain\Transaction\V1\Infra\{TransactionCommand, TransactionQuery};
 use Domain\Transaction\V1\Infra\Interfaces\
 {TransactionCommand as TransactionCommandInterface, TransactionQuery as TransactionQueryInterface};
 
+use Domain\Users\V1\Infra\{UserQuery};
+use Domain\Users\V1\Infra\Interfaces\{UserQuery as UserQueryInterface};
+
 class AppServiceProvider extends ServiceProvider
 {
     /** Register any application services. */
@@ -27,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->bindNotifications();
         $this->bindTransactions();
+        $this->bindUsers();
     }
 
     /** Bootstrap any application services. */
@@ -34,6 +38,13 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
         Model::shouldBeStrict( ! $this->app->environment('production'));
+    }
+
+    public function bindUsers(): void
+    {
+        $this->app->bind(UserQueryInterface::class, function ($app) {
+            return new UserQuery();
+        });
     }
 
     public function bindTransactions(): void

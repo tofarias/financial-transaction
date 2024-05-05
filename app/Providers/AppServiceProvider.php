@@ -19,6 +19,9 @@ use Domain\Transaction\V1\Infra\Interfaces\
 use Domain\Users\V1\Infra\{UserQuery};
 use Domain\Users\V1\Infra\Interfaces\{UserQuery as UserQueryInterface};
 
+use Domain\Wallets\V1\Infra\{walletQuery, WalletCommand};
+use Domain\Wallets\V1\Infra\Interfaces\{WalletQuery as WalletQueryInterface, WalletCommand as WalletCommandInterface};
+
 class AppServiceProvider extends ServiceProvider
 {
     /** Register any application services. */
@@ -31,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->bindNotifications();
         $this->bindTransactions();
         $this->bindUsers();
+        $this->bindWallets();
     }
 
     /** Bootstrap any application services. */
@@ -44,6 +48,17 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserQueryInterface::class, function ($app) {
             return new UserQuery();
+        });
+    }
+
+    public function bindWallets(): void
+    {
+        $this->app->bind(WalletQueryInterface::class, function ($app) {
+            return new walletQuery();
+        });
+
+        $this->app->bind(WalletCommandInterface::class, function ($app) {
+            return new WalletCommand();
         });
     }
 

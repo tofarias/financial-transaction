@@ -15,6 +15,7 @@ use Domain\Transaction\V1\Enums\CacheFetchAllEnum;
 use Domain\Transaction\V1\Exceptions\TransactionException;
 use Domain\Integrations\Authorization\AuthorizationService;
 use Domain\Transaction\V1\Infra\Interfaces\TransactionCommand as TransactionCommandInterface;
+use Domain\Wallets\V1\Infra\Interfaces\WalletCommand as WalletCommandInterface;
 
 class CreateTransactionService extends BaseServiceExecute
 {
@@ -43,8 +44,8 @@ class CreateTransactionService extends BaseServiceExecute
             app(TransactionCommandInterface::class)->updateStatus($newTransaction->id, $isAuthorized);
 
             $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
-                WalletCommand::debit($payer->wallet, $newTransaction->value);
-                WalletCommand::credit($payee->wallet, $newTransaction->value);
+                app(WalletCommandInterface::class)->debit($payer->wallet, $newTransaction->value);
+                app(WalletCommandInterface::class)->credit($payee->wallet, $newTransaction->value);
             });
 
             app(NotificationService::class)->notify($newTransaction);

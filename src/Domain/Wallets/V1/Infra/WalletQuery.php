@@ -8,8 +8,9 @@ use Domain\Shared\Services\BaseServiceModel;
 use Domain\Users\V1\Models\User;
 use Domain\Wallets\V1\Models\Wallet;
 use Illuminate\Support\Collection;
+use Domain\Wallets\V1\Infra\Interfaces\WalletQuery as WalletQueryInterface;
 
-abstract class WalletQuery extends BaseServiceModel
+final class WalletQuery extends BaseServiceModel implements WalletQueryInterface
 {
     /**
      * Fetch all wallets from the database.

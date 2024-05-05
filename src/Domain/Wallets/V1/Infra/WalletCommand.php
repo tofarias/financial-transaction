@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Domain\Wallets\V1\Infra;
 
-use Domain\Shared\Services\BaseServiceModel;
-use Domain\Transaction\V1\Exceptions\WalletException;
 use Domain\Wallets\V1\Models\Wallet;
+use Domain\Shared\Services\BaseServiceModel;
+use Domain\Wallets\V1\Exceptions\WalletException;
+use Domain\Wallets\V1\Infra\Interfaces\WalletCommand as WalletCommandInterface;
 
-abstract class WalletCommand extends BaseServiceModel
+final class WalletCommand extends BaseServiceModel implements WalletCommandInterface
 {
     /**
      * @param Wallet $payerWallet The payer's wallet.

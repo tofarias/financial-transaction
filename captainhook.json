@@ -10,7 +10,7 @@
                 "action": "./vendor/bin/pint -v"
             },
             {
-                "action": "./vendor/bin/pest tests/Feature/ --parallel --stop-on-defect"
+                "action": "./vendor/bin/pest tests/Feature/ --testdox-html test-results.html"
             }
         ]
     }

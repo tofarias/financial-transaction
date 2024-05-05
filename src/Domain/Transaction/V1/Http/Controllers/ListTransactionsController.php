@@ -28,6 +28,9 @@ class ListTransactionsController extends Controller
     public function __invoke(Request $request)
     {
         $validData = $request->validate([
+            /**
+             * usuário comum ou lojista
+             */
             'user_id' => 'nullable|exists:users,id',
         ]);
 

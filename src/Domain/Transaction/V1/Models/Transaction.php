@@ -31,6 +31,11 @@ class Transaction extends Model
         'is_authorized',
     ];
 
+    protected $with = [
+        'payerWallet.user',
+        'payeeWallet.user',
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *

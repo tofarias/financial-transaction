@@ -17,20 +17,17 @@ abstract class TransactionQuery extends BaseServiceModel
      */
     public static function fetchAll(?int $userId = null): Collection
     {
-        return Transaction::query()->with([
-            'payerWallet.user',
-            'payeeWallet.user',
-        ])
-        ->when($userId, function ($query) use ($userId) {
-            $query->join('wallets as payer_wallets', 'transactions.payer_wallet_id', '=', 'payer_wallets.id')
-                ->join('users as payers_users', 'payer_wallets.user_id', '=', 'payers_users.id')
-                ->join('wallets as payee_wallets', 'transactions.payee_wallet_id', '=', 'payee_wallets.id')
-                ->join('users as payees_users', 'payee_wallets.user_id', '=', 'payees_users.id')
-                ->orWhere(function($query) use($userId){
-                    $query->where('payers_users.id', $userId)
-                        ->orWhere('payees_users.id', $userId);
-                });
-        })
+        return Transaction::query()
+            ->when($userId, function ($query) use ($userId) {
+                $query->join('wallets as payer_wallets', 'transactions.payer_wallet_id', '=', 'payer_wallets.id')
+                    ->join('users as payers_users', 'payer_wallets.user_id', '=', 'payers_users.id')
+                    ->join('wallets as payee_wallets', 'transactions.payee_wallet_id', '=', 'payee_wallets.id')
+                    ->join('users as payees_users', 'payee_wallets.user_id', '=', 'payees_users.id')
+                    ->orWhere(function ($query) use ($userId) {
+                        $query->where('payers_users.id', $userId)
+                            ->orWhere('payees_users.id', $userId);
+                    });
+            })
             ->orderBy('transactions.id', 'desc')
             ->get();
     }

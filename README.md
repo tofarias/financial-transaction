@@ -1,7 +1,7 @@
 # financial-transaction
 financial transaction
 ## Diagrama ER
-![Captura de tela de 2024-05-04 22-54-35](https://github.com/tofarias/financial-transaction/assets/7261216/bf04d838-d502-46be-b323-c1126de10670)
+![Captura de tela de 2024-05-05 11-27-05](https://github.com/tofarias/financial-transaction/assets/7261216/bd19f271-37fb-4e00-b566-296b351309b3)
 
 ## Documentação da API
 - [http://localhost/docs/api](http://localhost/docs/api#/)

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Domain\Integrations\RabbitMQ\Consumer;
 use Domain\Integrations\RabbitMQ\Publisher;
+use Domain\Notification\V1\Interfaces\NotificationService as NotificationServiceInterface;
 use Domain\Notification\V1\NotificationConsumer;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Domain\Notification\V1\NotificationPublisher;
-
+use Domain\Notification\V1\NotificationService;
 use Domain\Transaction\V1\Infra\{TransactionCommand, TransactionQuery};
 use Domain\Transaction\V1\Infra\Interfaces\
 {TransactionCommand as TransactionCommandInterface, TransactionQuery as TransactionQueryInterface};
@@ -75,6 +76,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function bindNotifications(): void
     {
+        $this->app->bind(NotificationServiceInterface::class, function ($app) {
+            return new NotificationService(app(NotificationPublisher::class));
+        });
+
         $this->app->bind(NotificationPublisher::class, function ($app) {
             return new NotificationPublisher(new Publisher());
         });

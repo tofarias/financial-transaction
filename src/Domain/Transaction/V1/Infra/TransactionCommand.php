@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Domain\Transaction\V1\Infra;
 
-use Illuminate\Support\Collection;
 use Domain\Wallets\V1\Models\Wallet;
 use Domain\Shared\Services\BaseServiceModel;
 use Domain\Transaction\V1\Models\Transaction;
@@ -14,11 +13,6 @@ use Domain\Transaction\V1\Infra\Interfaces\TransactionQuery;
 
 final class TransactionCommand extends BaseServiceModel implements TransactionCommandInterface
 {
-    /**
-     * Create a transaction.
-     *
-     * @return Collection
-     */
     public static function create(Wallet $payerWallet, Wallet $payeeWallet, $value): Transaction
     {
         if($payerWallet->balance < $value) {
@@ -36,7 +30,6 @@ final class TransactionCommand extends BaseServiceModel implements TransactionCo
         ]);
     }
 
-    /** Update 'is_authorized' field. */
     public static function updateStatus(int $transactionId, bool $isAuthorized): void
     {
         $transaction = app(TransactionQuery::class)->findById($transactionId);

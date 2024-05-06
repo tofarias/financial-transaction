@@ -9,6 +9,11 @@ use Domain\Transaction\V1\Models\Transaction;
 
 interface TransactionQuery
 {
+    /**
+     * Fetch all transactions.
+     *
+     * @return Collection
+     */
     public static function fetchAll(?int $userId = null): Collection;
 
     /**

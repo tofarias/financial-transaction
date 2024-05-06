@@ -18,12 +18,19 @@ use Domain\Wallets\V1\Infra\Interfaces\WalletCommand as WalletCommandInterface;
 
 class CreateTransactionService extends BaseServiceExecute
 {
+    public function __construct(
+        private UserQueryInterface $userQuery,
+        private TransactionCommandInterface $transactionCommand,
+        private WalletCommandInterface $walletCommand
+    ) {
+    }
+
     public function execute(): mixed
     {
         $dtoValidData = $this->dto->valid_data;
 
-        $payer = app(UserQueryInterface::class)->findById($dtoValidData->payer);
-        $payee = app(UserQueryInterface::class)->findById($dtoValidData->payee);
+        $payer = $this->userQuery->findById($dtoValidData->payer);
+        $payee = $this->userQuery->findById($dtoValidData->payee);
         $value = $dtoValidData->value;
 
         if($payer->isShopkeeper()) {
@@ -33,25 +40,25 @@ class CreateTransactionService extends BaseServiceExecute
         DB::beginTransaction();
 
         try {
-            $newTransaction = app(TransactionCommandInterface::class)->create(
+            $newTransaction = $this->transactionCommand->create(
                 $payer->wallet,
                 $payee->wallet,
                 $value
             );
 
             $isAuthorized = app(AuthorizationService::class)->isAuthorized();
-            app(TransactionCommandInterface::class)->updateStatus($newTransaction->id, $isAuthorized);
+            $this->transactionCommand->updateStatus($newTransaction->id, $isAuthorized);
 
             $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
-                app(WalletCommandInterface::class)->debit($payer->wallet, $newTransaction->value);
-                app(WalletCommandInterface::class)->credit($payee->wallet, $newTransaction->value);
+                $this->walletCommand->debit($payer->wallet, $newTransaction->value);
+                $this->walletCommand->credit($payee->wallet, $newTransaction->value);
             });
 
             app(NotificationService::class)->notify($newTransaction);
 
             DB::commit();
 
-            self::cacheForget($payer->id, $payee->id);
+            self::cacheForget();
 
             return $newTransaction->fresh();
         } catch (Throwable $th) {
@@ -61,9 +68,8 @@ class CreateTransactionService extends BaseServiceExecute
         }
     }
 
-    protected static function cacheForget(int $payerId, int $payeeId): void
+    protected static function cacheForget(): void
     {
-        Cache::forget(CacheFetchAllEnum::FETCH_ALL->value.$payerId);
-        Cache::forget(CacheFetchAllEnum::FETCH_ALL->value.$payeeId);
+        Cache::forget(CacheFetchAllEnum::FETCH_ALL->value);
     }
 }

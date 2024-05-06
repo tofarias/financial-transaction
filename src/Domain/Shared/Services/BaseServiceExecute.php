@@ -12,10 +12,7 @@ abstract class BaseServiceExecute
 {
     use Conditionable;
 
-    public function __construct(protected RequestDTO $dto = new RequestDTO())
-    {
-
-    }
+    public RequestDTO $dto;
 
     /**
      * A description of the entire PHP function.

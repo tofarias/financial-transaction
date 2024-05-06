@@ -13,14 +13,9 @@ use Illuminate\Support\Facades\Cache;
 
 final class TransactionQuery extends BaseServiceModel implements TransactionQueryInterface
 {
-    /**
-     * Fetch all transactions from the database.
-     *
-     * @return Collection
-     */
     public static function fetchAll(?int $userId = null): Collection
     {
-        return Cache::rememberForever(CacheFetchAllEnum::FETCH_ALL->value.$userId, function () use ($userId) {
+        return Cache::rememberForever(CacheFetchAllEnum::FETCH_ALL->value, function () use ($userId) {
             return Transaction::query()
                 ->select('transactions.*')
                 ->when($userId, function ($query) use ($userId) {

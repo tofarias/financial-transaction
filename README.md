@@ -1,5 +1,41 @@
 # financial-transaction
 financial transaction
+
+##  To run the project locally
+
+- run:
+```sh
+  git clone https://github.com/tofarias/financial-transaction.git
+```
+  ```sh
+  cp .env.example .env
+ ```
+
+ ```sh
+  docker run --rm \                                                   
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install --ignore-platform-reqs
+ ```
+- Create a 'sail' alias:
+ ```sh
+  alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+ ```
+```sh
+  sail up -d
+ ```
+
+ - In MySql create a database 'financ_transac', and then run:
+ ```sh
+  sail artisan migrate:refresh --seed
+ ```
+ - Access the endpoint:
+```sh
+http://localhost/api/v1
+```
+
 ## Diagrama ER
 ![Captura de tela de 2024-05-05 11-27-05](https://github.com/tofarias/financial-transaction/assets/7261216/bd19f271-37fb-4e00-b566-296b351309b3)
 

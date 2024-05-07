@@ -52,9 +52,8 @@ class CreateTransactionService extends BaseServiceExecute
             $this->when($isAuthorized, function () use ($newTransaction, $payer, $payee) {
                 $this->walletCommand->debit($payer->wallet, $newTransaction->value);
                 $this->walletCommand->credit($payee->wallet, $newTransaction->value);
+                app(NotificationService::class)->notify($newTransaction);
             });
-
-            app(NotificationService::class)->notify($newTransaction);
 
             DB::commit();
 
